@@ -1,0 +1,2482 @@
+{
+	"info": {
+		"_postman_id": "352ab681-0726-41eb-9d77-0185765902df",
+		"name": "Phygital24 External APIs",
+		"description": "These External APIs are used for the interaction between third party systems and Phygital24 System.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18293790"
+	},
+	"item": [
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "List Categories",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"// console.log(response.categories[0].children[0])\r",
+									"if(response.errors != null){\r",
+									"    pm.test(\"Authentication - \" + response.errors[0], () =>{\r",
+									"        pm.expect(response.errors).not.to.include(\"No authentication\");\r",
+									"    })\r",
+									"}\r",
+									"// console.log(response.categories[0].children.length);\r",
+									"if(response.categories != null){\r",
+									"    categoriesCount = 0 \r",
+									"    for (let i = 0; i < response.categories.length; i++){\r",
+									"        for(let j = 0; j < response.categories[i].children.length;j++){\r",
+									"        // for(let j = 0; j<response.categories.children.length)\r",
+									"        // console.log(response.categories[i].children[j]);\r",
+									"        categorieslog = response.categories[i];\r",
+									"        childrenLog = response.categories[i].children[j];\r",
+									"        pm.test(\"Validating Categories Inv - \" + categorieslog.name +\" No of Name - \"+ categorieslog.children.length, () => {\r",
+									"            pm.expect(categorieslog.id).to.not.eql(null);\r",
+									"            pm.expect(categorieslog.name).to.not.eql(null);\r",
+									"        })\r",
+									"        if(response.categories[i] == response.categories[i+1]){\r",
+									"            pm.test(\"Categories Have Same Names - \" + response.categories[i] + \" and \" + response.categories[i+1], () =>{\r",
+									"                pm.expect(response.categories).to.not.eqls(null);\r",
+									"            })\r",
+									"        }\r",
+									"        // pm.test(\"Categorie Id and Children are Connected\", () =>{\r",
+									"        //     if(response.categories[i])\r",
+									"        // })\r",
+									"        // for(int j =0 ; j< response.categorieslog)\r",
+									"        categoriesCount =  categoriesCount + 1\r",
+									"    }\r",
+									"    \r",
+									"    }\r",
+									"    pm.test(\"Total Categories Present - \"+ categoriesCount, () => {\r",
+									"        pm.expect(categorieslog).to.not.eql(null);\r",
+									"    })\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/categories",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"categories"
+							]
+						},
+						"description": "### Format\nroot -> children -> children\n\n**Maximum Depth**: 3\n\n### Category\n|Field    |Type      |Description        |\n|---------|----------|-------------------|\n|name     |String    |                   |\n|id       |Integer   |                   |\n|parent_id|Integer   |Exists for children|\n|children |Json Array|                   |"
+					},
+					"response": [
+						{
+							"name": "List Categories",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/external/api/v1/categories",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"external",
+										"api",
+										"v1",
+										"categories"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Cowboy"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 01 Dec 2021 06:02:00 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Xss-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Etag",
+									"value": "W/\"c1d04bf3dbaaf68e2c30cd1f04029262\""
+								},
+								{
+									"key": "Cache-Control",
+									"value": "max-age=0, private, must-revalidate"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "dce3eeea-e464-49b4-aa91-bccd14894a43"
+								},
+								{
+									"key": "X-Runtime",
+									"value": "1.140151"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 vegur"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"categories\": [\n        {\n            \"id\": 9571,\n            \"name\": \"Masalas\",\n            \"children\": [\n                {\n                    \"id\": 9572,\n                    \"parent_id\": 9571,\n                    \"name\": \"amazing masalas\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 3974,\n            \"name\": \"test\",\n            \"children\": [\n                {\n                    \"id\": 3975,\n                    \"parent_id\": 3974,\n                    \"name\": \"gs\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 5043,\n            \"name\": \"Herbal Beverages\",\n            \"children\": [\n                {\n                    \"id\": 5044,\n                    \"parent_id\": 5043,\n                    \"name\": \"Fruit Juices & Drinks\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6426,\n                    \"parent_id\": 5043,\n                    \"name\": \"Tea\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6478,\n                    \"parent_id\": 5043,\n                    \"name\": \"Health Drink, Supplement\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 6398,\n            \"name\": \"Dairy and Frozen Foods\",\n            \"children\": [\n                {\n                    \"id\": 6399,\n                    \"parent_id\": 6398,\n                    \"name\": \"Dairy Products\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6455,\n                    \"parent_id\": 6398,\n                    \"name\": \"Cheese\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6500,\n                    \"parent_id\": 6398,\n                    \"name\": \"Frozen Foods Veg\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 5493,\n            \"name\": \"Sweets\",\n            \"children\": [\n                {\n                    \"id\": 5494,\n                    \"parent_id\": 5493,\n                    \"name\": \"Sweets\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6479,\n                    \"parent_id\": 5493,\n                    \"name\": \"Chikki Sweets\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6494,\n                    \"parent_id\": 5493,\n                    \"name\": \"Homemade Sweets\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 4765,\n            \"name\": \"Branded Foods\",\n            \"children\": [\n                {\n                    \"id\": 4766,\n                    \"parent_id\": 4765,\n                    \"name\": \"Chocolates\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 6396,\n            \"name\": \"Hul\",\n            \"children\": [\n                {\n                    \"id\": 6397,\n                    \"parent_id\": 6396,\n                    \"name\": \"Hul Food\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6502,\n                    \"parent_id\": 6396,\n                    \"name\": \"Hul Pp1\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 5994,\n            \"name\": \"Breads\",\n            \"children\": []\n        },\n        {\n            \"id\": 5707,\n            \"name\": \"Others\",\n            \"children\": [\n                {\n                    \"id\": 5708,\n                    \"parent_id\": 5707,\n                    \"name\": \"Stationary\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 5481,\n            \"name\": \"Starters\",\n            \"children\": []\n        },\n        {\n            \"id\": 3960,\n            \"name\": \"Mohan\",\n            \"children\": [\n                {\n                    \"id\": 3961,\n                    \"parent_id\": 3960,\n                    \"name\": \"Mohan1\",\n                    \"children\": [\n                        {\n                            \"id\": 3962,\n                            \"parent_id\": 3961,\n                            \"name\": \"Mohan2\"\n                        }\n                    ]\n                }\n            ]\n        },\n        {\n            \"id\": 6051,\n            \"name\": \"Rameshe\",\n            \"children\": [\n                {\n                    \"id\": 6052,\n                    \"parent_id\": 6051,\n                    \"name\": \"Rame\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 4330,\n            \"name\": \"Beauty & Hygiene\",\n            \"children\": [\n                {\n                    \"id\": 4331,\n                    \"parent_id\": 4330,\n                    \"name\": \"Skin Care\",\n                    \"children\": [\n                        {\n                            \"id\": 4332,\n                            \"parent_id\": 4331,\n                            \"name\": \"Face Care\"\n                        }\n                    ]\n                },\n                {\n                    \"id\": 4333,\n                    \"parent_id\": 4330,\n                    \"name\": \"Makeup\",\n                    \"children\": [\n                        {\n                            \"id\": 4334,\n                            \"parent_id\": 4333,\n                            \"name\": \"Nails\"\n                        }\n                    ]\n                },\n                {\n                    \"id\": 4335,\n                    \"parent_id\": 4330,\n                    \"name\": \"Mens Grooming\",\n                    \"children\": [\n                        {\n                            \"id\": 4336,\n                            \"parent_id\": 4335,\n                            \"name\": \"Shaving Care\"\n                        }\n                    ]\n                },\n                {\n                    \"id\": 4337,\n                    \"parent_id\": 4330,\n                    \"name\": \"Bath & Hand Wash\",\n                    \"children\": [\n                        {\n                            \"id\": 4338,\n                            \"parent_id\": 4337,\n                            \"name\": \"Shower Gel & Body Wash\"\n                        },\n                        {\n                            \"id\": 4347,\n                            \"parent_id\": 4337,\n                            \"name\": \"Bathing Bars & Soaps\"\n                        }\n                    ]\n                },\n                {\n                    \"id\": 4339,\n                    \"parent_id\": 4330,\n                    \"name\": \"Hair Care\",\n                    \"children\": [\n                        {\n                            \"id\": 4340,\n                            \"parent_id\": 4339,\n                            \"name\": \"Shampoo & Conditioner\"\n                        }\n                    ]\n                },\n                {\n                    \"id\": 4341,\n                    \"parent_id\": 4330,\n                    \"name\": \"Fragrances & Deos\",\n                    \"children\": [\n                        {\n                            \"id\": 4342,\n                            \"parent_id\": 4341,\n                            \"name\": \"Womens Deo\"\n                        },\n                        {\n                            \"id\": 4343,\n                            \"parent_id\": 4341,\n                            \"name\": \"Mens Deo\"\n                        }\n                    ]\n                },\n                {\n                    \"id\": 4805,\n                    \"parent_id\": 4330,\n                    \"name\": \"Oral Care\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5554,\n                    \"parent_id\": 4330,\n                    \"name\": \"Feminine Hygiene\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5585,\n                    \"parent_id\": 4330,\n                    \"name\": \"Health & Medicine\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6495,\n                    \"parent_id\": 4330,\n                    \"name\": \"Bath & Handwash\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 4344,\n            \"name\": \"Grocery & Staples\",\n            \"children\": [\n                {\n                    \"id\": 4345,\n                    \"parent_id\": 4344,\n                    \"name\": \"Edible Oils & Ghee\",\n                    \"children\": [\n                        {\n                            \"id\": 4346,\n                            \"parent_id\": 4345,\n                            \"name\": \"Gingelly, Groundnut Oils\"\n                        }\n                    ]\n                },\n                {\n                    \"id\": 4757,\n                    \"parent_id\": 4344,\n                    \"name\": \"Flours & Sooji\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 4783,\n                    \"parent_id\": 4344,\n                    \"name\": \"Rice & Rice Products\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 4881,\n                    \"parent_id\": 4344,\n                    \"name\": \"Organic Staples\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5259,\n                    \"parent_id\": 4344,\n                    \"name\": \"Salt, Sugar & Jaggery\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5262,\n                    \"parent_id\": 4344,\n                    \"name\": \"Dals & Pulses\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5303,\n                    \"parent_id\": 4344,\n                    \"name\": \"Dry Fruits\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5476,\n                    \"parent_id\": 4344,\n                    \"name\": \"Masalas & Spices\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6149,\n                    \"parent_id\": 4344,\n                    \"name\": \"gzhsg\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 6470,\n            \"name\": \"MILKA\",\n            \"children\": [\n                {\n                    \"id\": 6471,\n                    \"parent_id\": 6470,\n                    \"name\": \"Goat Milk\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 3957,\n            \"name\": \"Rushi\",\n            \"children\": [\n                {\n                    \"id\": 3958,\n                    \"parent_id\": 3957,\n                    \"name\": \"Rushi1\",\n                    \"children\": [\n                        {\n                            \"id\": 3959,\n                            \"parent_id\": 3958,\n                            \"name\": \"Rushi2\"\n                        }\n                    ]\n                }\n            ]\n        },\n        {\n            \"id\": 3963,\n            \"name\": \"Cat One\",\n            \"children\": [\n                {\n                    \"id\": 3964,\n                    \"parent_id\": 3963,\n                    \"name\": \"Cat One Mini\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 3969,\n                    \"parent_id\": 3963,\n                    \"name\": \"dad\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 3965,\n            \"name\": \"Cat Two\",\n            \"children\": [\n                {\n                    \"id\": 3966,\n                    \"parent_id\": 3965,\n                    \"name\": \"Cat Two Mini\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 4238,\n            \"name\": \"SRam\",\n            \"children\": [\n                {\n                    \"id\": 4239,\n                    \"parent_id\": 4238,\n                    \"name\": \"Sramesh\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 4236,\n            \"name\": \"def\",\n            \"children\": [\n                {\n                    \"id\": 4237,\n                    \"parent_id\": 4236,\n                    \"name\": \"ghi\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 4321,\n            \"name\": \"Gourmet & World Food\",\n            \"children\": [\n                {\n                    \"id\": 4322,\n                    \"parent_id\": 4321,\n                    \"name\": \"Sauces, Spreads & Dips\",\n                    \"children\": [\n                        {\n                            \"id\": 4323,\n                            \"parent_id\": 4322,\n                            \"name\": \"Thai & Asian Sauces\"\n                        }\n                    ]\n                },\n                {\n                    \"id\": 5284,\n                    \"parent_id\": 4321,\n                    \"name\": \"Snacks, Dry Fruits, Nuts\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5484,\n                    \"parent_id\": 4321,\n                    \"name\": \"Pasta, Soup & Noodles\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6223,\n                    \"parent_id\": 4321,\n                    \"name\": \"Drinks & Beverages\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6413,\n                    \"parent_id\": 4321,\n                    \"name\": \"Cooking & Baking Needs\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6414,\n                    \"parent_id\": 4321,\n                    \"name\": \"Chocolates & Biscuits\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6415,\n                    \"parent_id\": 4321,\n                    \"name\": \"Tinned & Processed Food\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6421,\n                    \"parent_id\": 4321,\n                    \"name\": \"Cereals & Breakfast\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6427,\n                    \"parent_id\": 4321,\n                    \"name\": \"Oils & Vinegar\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 4234,\n            \"name\": \"abc\",\n            \"children\": [\n                {\n                    \"id\": 4235,\n                    \"parent_id\": 4234,\n                    \"name\": \"def\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 4761,\n            \"name\": \"Snacks & Branded Food\",\n            \"children\": [\n                {\n                    \"id\": 4762,\n                    \"parent_id\": 4761,\n                    \"name\": \"Chocolates & Candies\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 4855,\n                    \"parent_id\": 4761,\n                    \"name\": \"Ready to Cook & Eat\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 4923,\n                    \"parent_id\": 4761,\n                    \"name\": \"Spreads, Sauces & Ketchup\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5344,\n                    \"parent_id\": 4761,\n                    \"name\": \"Breakfast Cereals\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5530,\n                    \"parent_id\": 4761,\n                    \"name\": \"Pickles & Chutney\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5540,\n                    \"parent_id\": 4761,\n                    \"name\": \"Indian Mithai\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5633,\n                    \"parent_id\": 4761,\n                    \"name\": \"Biscuits & Cookies\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5766,\n                    \"parent_id\": 4761,\n                    \"name\": \"Snacks & Namkeen\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5869,\n                    \"parent_id\": 4761,\n                    \"name\": \"New Snack\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6083,\n                    \"parent_id\": 4761,\n                    \"name\": \"Noodles, Pasta & Vermicelli\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6148,\n                    \"parent_id\": 4761,\n                    \"name\": \"Frozen Veggies & Snacks\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 5039,\n            \"name\": \"Herbal Beauty & Hygiene\",\n            \"children\": [\n                {\n                    \"id\": 5040,\n                    \"parent_id\": 5039,\n                    \"name\": \"Health & Medicine\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5981,\n                    \"parent_id\": 5039,\n                    \"name\": \"Hair Care\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6416,\n                    \"parent_id\": 5039,\n                    \"name\": \"Bath & Hand Wash\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6419,\n                    \"parent_id\": 5039,\n                    \"name\": \"Skin Care\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6454,\n                    \"parent_id\": 5039,\n                    \"name\": \"Oral Care\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 4909,\n            \"name\": \"Kitchen, Garden And Pets\",\n            \"children\": [\n                {\n                    \"id\": 4910,\n                    \"parent_id\": 4909,\n                    \"name\": \"Appliances & Electricals\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5077,\n                    \"parent_id\": 4909,\n                    \"name\": \"Crockery & Cutlery\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5081,\n                    \"parent_id\": 4909,\n                    \"name\": \"Storage & Accessories\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5082,\n                    \"parent_id\": 4909,\n                    \"name\": \"Flask & Casserole\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5142,\n                    \"parent_id\": 4909,\n                    \"name\": \"Kitchen Accessories\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6422,\n                    \"parent_id\": 4909,\n                    \"name\": \"Pet Food & Accessories\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6429,\n                    \"parent_id\": 4909,\n                    \"name\": \"Gardening\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 4608,\n            \"name\": \"Fruits & Vegetabless\",\n            \"children\": [\n                {\n                    \"id\": 4609,\n                    \"parent_id\": 4608,\n                    \"name\": \"Fresh Vegetables\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5427,\n                    \"parent_id\": 4608,\n                    \"name\": \"Exotic Fruits & Veggies\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5428,\n                    \"parent_id\": 4608,\n                    \"name\": \"Fresh Fruits\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5492,\n                    \"parent_id\": 4608,\n                    \"name\": \"Organic Fruits\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5767,\n                    \"parent_id\": 4608,\n                    \"name\": \"Herbs & Seasonings\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5868,\n                    \"parent_id\": 4608,\n                    \"name\": \"Organic Vegetables\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6472,\n                    \"parent_id\": 4608,\n                    \"name\": \"Organic Fruits & Vegetables\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6477,\n                    \"parent_id\": 4608,\n                    \"name\": \"Cuts & Sprouts\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 3967,\n            \"name\": \"Cat Three\",\n            \"children\": [\n                {\n                    \"id\": 3968,\n                    \"parent_id\": 3967,\n                    \"name\": \"Cat Three Mini\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 3929,\n            \"name\": \"Baby Care\",\n            \"children\": [\n                {\n                    \"id\": 3930,\n                    \"parent_id\": 3929,\n                    \"name\": \"Baby Diapers\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 3973,\n                    \"parent_id\": 3929,\n                    \"name\": \"New\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5242,\n                    \"parent_id\": 3929,\n                    \"name\": \"Diapers & Wipes\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5638,\n                    \"parent_id\": 3929,\n                    \"name\": \"Feeding & Nursing\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5965,\n                    \"parent_id\": 3929,\n                    \"name\": \"Baby Accessories\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6089,\n                    \"parent_id\": 3929,\n                    \"name\": \"Baby Food & Formula\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6091,\n                    \"parent_id\": 3929,\n                    \"name\": \"Baby Bath & Hygiene\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 3954,\n            \"name\": \"This is really a long game and let it stay like this\",\n            \"children\": [\n                {\n                    \"id\": 3955,\n                    \"parent_id\": 3954,\n                    \"name\": \"Grocery\",\n                    \"children\": [\n                        {\n                            \"id\": 3956,\n                            \"parent_id\": 3955,\n                            \"name\": \"Care\"\n                        }\n                    ]\n                },\n                {\n                    \"id\": 4240,\n                    \"parent_id\": 3954,\n                    \"name\": \"Staples\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 5471,\n            \"name\": \"Chinese\",\n            \"children\": [\n                {\n                    \"id\": 5472,\n                    \"parent_id\": 5471,\n                    \"name\": \"Chinese\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 4814,\n            \"name\": \"Cleaning & Household\",\n            \"children\": [\n                {\n                    \"id\": 4815,\n                    \"parent_id\": 4814,\n                    \"name\": \"Stationary\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 4820,\n                    \"parent_id\": 4814,\n                    \"name\": \"Fresheners & Repellents\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5003,\n                    \"parent_id\": 4814,\n                    \"name\": \"Sports & Fitness\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5008,\n                    \"parent_id\": 4814,\n                    \"name\": \"Detergents & Dishwash\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5014,\n                    \"parent_id\": 4814,\n                    \"name\": \"Mops, Brushes & Scrubs\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5075,\n                    \"parent_id\": 4814,\n                    \"name\": \"Disposables & Garbage Bag\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5102,\n                    \"parent_id\": 4814,\n                    \"name\": \"Car & Shoe Care\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5109,\n                    \"parent_id\": 4814,\n                    \"name\": \"All Purpose Cleaners\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5556,\n                    \"parent_id\": 4814,\n                    \"name\": \"Party & Festive Needs\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5761,\n                    \"parent_id\": 4814,\n                    \"name\": \"Bins & Bathroom Ware\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5765,\n                    \"parent_id\": 4814,\n                    \"name\": \"Pooja Needs\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 4327,\n            \"name\": \"Bakery, Cakes & Dairy\",\n            \"children\": [\n                {\n                    \"id\": 4328,\n                    \"parent_id\": 4327,\n                    \"name\": \"Dairy\",\n                    \"children\": [\n                        {\n                            \"id\": 4329,\n                            \"parent_id\": 4328,\n                            \"name\": \"Curd\"\n                        }\n                    ]\n                },\n                {\n                    \"id\": 5399,\n                    \"parent_id\": 4327,\n                    \"name\": \"Ice Creams & Desserts\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5400,\n                    \"parent_id\": 4327,\n                    \"name\": \"Bakery & Cakes\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6430,\n                    \"parent_id\": 4327,\n                    \"name\": \"Breads & Buns\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6431,\n                    \"parent_id\": 4327,\n                    \"name\": \"Cakes & Pastries\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6432,\n                    \"parent_id\": 4327,\n                    \"name\": \"Cookies, Rusk & Khari\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 5071,\n            \"name\": \"Household\",\n            \"children\": [\n                {\n                    \"id\": 5072,\n                    \"parent_id\": 5071,\n                    \"name\": \"Repellent & Fresheners\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5073,\n                    \"parent_id\": 5071,\n                    \"name\": \"Detergents\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5074,\n                    \"parent_id\": 5071,\n                    \"name\": \"Disposables & Garbage Bag\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5557,\n                    \"parent_id\": 5071,\n                    \"name\": \"Cleaning Accessories\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 5477,\n            \"name\": \"South Indian\",\n            \"children\": [\n                {\n                    \"id\": 5478,\n                    \"parent_id\": 5477,\n                    \"name\": \"South Indian\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 6067,\n            \"name\": \"Salads\",\n            \"children\": []\n        },\n        {\n            \"id\": 5475,\n            \"name\": \"Main Course\",\n            \"children\": []\n        },\n        {\n            \"id\": 5781,\n            \"name\": \"North Indian\",\n            \"children\": [\n                {\n                    \"id\": 5782,\n                    \"parent_id\": 5781,\n                    \"name\": \"North Indian\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 6407,\n            \"name\": \"Hair and Grooming\",\n            \"children\": [\n                {\n                    \"id\": 6408,\n                    \"parent_id\": 6407,\n                    \"name\": \"Shampoo\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 5898,\n            \"name\": \"Household Items\",\n            \"children\": [\n                {\n                    \"id\": 5899,\n                    \"parent_id\": 5898,\n                    \"name\": \"General Items\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 6466,\n            \"name\": \"Fruits & Vegetables\",\n            \"children\": [\n                {\n                    \"id\": 6467,\n                    \"parent_id\": 6466,\n                    \"name\": \"Fruits\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 6417,\n            \"name\": \"Test Taxonomy\",\n            \"children\": [\n                {\n                    \"id\": 6418,\n                    \"parent_id\": 6417,\n                    \"name\": \"New Test\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6465,\n                    \"parent_id\": 6417,\n                    \"name\": \"Taxon\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 6480,\n            \"name\": \"Packaging\",\n            \"children\": [\n                {\n                    \"id\": 6481,\n                    \"parent_id\": 6480,\n                    \"name\": \"Boxes\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 6394,\n            \"name\": \"Eggs, Meat & Fish\",\n            \"children\": [\n                {\n                    \"id\": 6395,\n                    \"parent_id\": 6394,\n                    \"name\": \"Sausages, Bacon & Salami\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6411,\n                    \"parent_id\": 6394,\n                    \"name\": \"Fish & Seafood\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6428,\n                    \"parent_id\": 6394,\n                    \"name\": \"Eggs\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6503,\n                    \"parent_id\": 6394,\n                    \"name\": \"Meat & Poultry\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 6065,\n            \"name\": \"Herbal Snacks & Branded Foods\",\n            \"children\": [\n                {\n                    \"id\": 6066,\n                    \"parent_id\": 6065,\n                    \"name\": \"Spreads, Sauces & Ketchup\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 6402,\n            \"name\": \"Snacks and Confectionery\",\n            \"children\": [\n                {\n                    \"id\": 6403,\n                    \"parent_id\": 6402,\n                    \"name\": \"Namkeens\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6406,\n                    \"parent_id\": 6402,\n                    \"name\": \"Packaged Foods\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6457,\n                    \"parent_id\": 6402,\n                    \"name\": \"Chocolates\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6458,\n                    \"parent_id\": 6402,\n                    \"name\": \"Biscuits\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 6409,\n            \"name\": \"Instant Food\",\n            \"children\": [\n                {\n                    \"id\": 6410,\n                    \"parent_id\": 6409,\n                    \"name\": \"Pasta\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6460,\n                    \"parent_id\": 6409,\n                    \"name\": \"Ready to Cook\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6473,\n                    \"parent_id\": 6409,\n                    \"name\": \"Soups\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6501,\n                    \"parent_id\": 6409,\n                    \"name\": \"Noodles\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 5473,\n            \"name\": \"Desserts\",\n            \"children\": [\n                {\n                    \"id\": 5474,\n                    \"parent_id\": 5473,\n                    \"name\": \"Desserts\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 5711,\n            \"name\": \"Breakfast and Bakery\",\n            \"children\": [\n                {\n                    \"id\": 5712,\n                    \"parent_id\": 5711,\n                    \"name\": \"Batters\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6404,\n                    \"parent_id\": 5711,\n                    \"name\": \"Eggs\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6459,\n                    \"parent_id\": 5711,\n                    \"name\": \"Jams and Honey\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6496,\n                    \"parent_id\": 5711,\n                    \"name\": \"Cakes\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6499,\n                    \"parent_id\": 5711,\n                    \"name\": \"Sauces\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 5921,\n            \"name\": \"Business app\",\n            \"children\": [\n                {\n                    \"id\": 5922,\n                    \"parent_id\": 5921,\n                    \"name\": \"Test\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 5870,\n            \"name\": \"Herbal Cleaning & Household\",\n            \"children\": [\n                {\n                    \"id\": 5871,\n                    \"parent_id\": 5870,\n                    \"name\": \"Pooja Needs\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 5489,\n            \"name\": \"Flowers & Garlands\",\n            \"children\": [\n                {\n                    \"id\": 5490,\n                    \"parent_id\": 5489,\n                    \"name\": \"Leaves\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 5479,\n            \"name\": \"Personal Care\",\n            \"children\": [\n                {\n                    \"id\": 5480,\n                    \"parent_id\": 5479,\n                    \"name\": \"Health Care\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5999,\n                    \"parent_id\": 5479,\n                    \"name\": \"Baby Care\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6405,\n                    \"parent_id\": 5479,\n                    \"name\": \"Lip Care\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6449,\n                    \"parent_id\": 5479,\n                    \"name\": \"Hair Care\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6456,\n                    \"parent_id\": 5479,\n                    \"name\": \"Soap\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6474,\n                    \"parent_id\": 5479,\n                    \"name\": \"Hand Sanitizer\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6475,\n                    \"parent_id\": 5479,\n                    \"name\": \"Men Deos\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6476,\n                    \"parent_id\": 5479,\n                    \"name\": \"Tooth Paste\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6498,\n                    \"parent_id\": 5479,\n                    \"name\": \"Body Lotion\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 5699,\n            \"name\": \"Groceries and Staples\",\n            \"children\": [\n                {\n                    \"id\": 5700,\n                    \"parent_id\": 5699,\n                    \"name\": \"Edible Oils\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6401,\n                    \"parent_id\": 5699,\n                    \"name\": \"Dry Fruits\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6497,\n                    \"parent_id\": 5699,\n                    \"name\": \"Rice\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 5995,\n            \"name\": \"Chinese Soups\",\n            \"children\": [\n                {\n                    \"id\": 5996,\n                    \"parent_id\": 5995,\n                    \"name\": \"Chinese Soups\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 5874,\n            \"name\": \"Home and Hygiene\",\n            \"children\": [\n                {\n                    \"id\": 5875,\n                    \"parent_id\": 5874,\n                    \"name\": \"Scrubbers\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 4324,\n            \"name\": \"Beverages\",\n            \"children\": [\n                {\n                    \"id\": 4325,\n                    \"parent_id\": 4324,\n                    \"name\": \"Coffee\",\n                    \"children\": [\n                        {\n                            \"id\": 4326,\n                            \"parent_id\": 4325,\n                            \"name\": \"Instant Coffee\"\n                        }\n                    ]\n                },\n                {\n                    \"id\": 5083,\n                    \"parent_id\": 4324,\n                    \"name\": \"Tea\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5296,\n                    \"parent_id\": 4324,\n                    \"name\": \"Fruit Juices & Drinks\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5798,\n                    \"parent_id\": 4324,\n                    \"name\": \"Water\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 5811,\n                    \"parent_id\": 4324,\n                    \"name\": \"Health Drink, Supplement\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6400,\n                    \"parent_id\": 4324,\n                    \"name\": \"Soft Drinks\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6412,\n                    \"parent_id\": 4324,\n                    \"name\": \"Energy & Soft Drinks\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6420,\n                    \"parent_id\": 4324,\n                    \"name\": \"Tea & Coffee\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 5672,\n            \"name\": \"A\",\n            \"children\": [\n                {\n                    \"id\": 5673,\n                    \"parent_id\": 5672,\n                    \"name\": \"B\",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 3971,\n            \"name\": \"sswati test\",\n            \"children\": [\n                {\n                    \"id\": 3972,\n                    \"parent_id\": 3971,\n                    \"name\": \"test \",\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 5053,\n            \"name\": \"Herbal Grocery & Staples\",\n            \"children\": [\n                {\n                    \"id\": 5054,\n                    \"parent_id\": 5053,\n                    \"name\": \"Salt, Sugar & Jaggery\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6423,\n                    \"parent_id\": 5053,\n                    \"name\": \"Edible Oils & Ghee\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6424,\n                    \"parent_id\": 5053,\n                    \"name\": \"Masalas & Spices\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6425,\n                    \"parent_id\": 5053,\n                    \"name\": \"Dry Fruits\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 6504,\n                    \"parent_id\": 5053,\n                    \"name\": \"Rice & Rice Products\",\n                    \"children\": []\n                }\n            ]\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Create Root",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// console.log('create Root response: ', pm.response.json());",
+									"pm.test(\"API response contians the expected header\", () => {",
+									"  pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+									"});",
+									"",
+									"pm.test(\"API responds within the expected treshhold\", () => {",
+									"  // set the response time in milliseconds",
+									"  const expectedTimeInMilliseconds = 500;",
+									"",
+									"  pm.expect(pm.response.responseTime).to.be.lessThan(",
+									"    expectedTimeInMilliseconds + 1,",
+									"    `The endpoint did not respond within ${expectedTimeInMilliseconds} ms. Response came in ${pm.response.responseTime} ms`",
+									"  );",
+									"});",
+									"",
+									"// pm.expect(pm.cookies.has('sessionID')).to.be.false;",
+									"pm.test(\"the endpoint returns the expected status code\",()=>{",
+									"    const expectedStatusCode = [200,201];",
+									"    const responseJson = pm.response.json();",
+									"    const sample = responseJson.errors[0];",
+									"    let sample1 = JSON.stringify(sample);",
+									"    console.log(sample1);",
+									"    const a=[];",
+									"    var list = (responseJson.errors).length;",
+									"    for(var i=0;i<list;i++){",
+									"        var value = responseJson.errors[i];   ",
+									"        a.push(value);",
+									"    }",
+									"    console.log(a);",
+									"    a=JSON.stringify(a);",
+									"    postman.setEnvironmentVariable(\"errors\", a);",
+									"    // const error = jsonData.errors[];",
+									"",
+									"    responseJson = JSON.parse(responseBody);",
+									"",
+									"    // pm.test(\"Your test name\", function () {",
+									"    //     var jsonData = pm.response.json();",
+									"    //     pm.expect(jsonData.value).to.eql(100);",
+									"    // });",
+									"    pm.expect(pm.response.code).to.be.oneOf(",
+									"        expectedStatusCode, sample1,",
+									"        console.log(sample1),",
+									"        'expected status code ${expectedStatusCodes} but got ${pm.response.code}.with and ${sample1}' ",
+									"    );",
+									"})",
+									"pm.test(\"The response has all properties\", () => {",
+									"    //parse the response JSON and test three properties",
+									"    const responseJson = pm.response.json();",
+									"    // console.log(responseJson.errors);",
+									"    const demo = ",
+									"    pm.expect(responseJson.status).to.eql('success');",
+									"    pm.expect(responseJson.errors).to.have.lengthOf(0);",
+									"    // pm.expect(responseJson.category).to.have.lengthOf(1);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"create_root_name\",pm.iterationData.get(\"create_root_name\"));\r",
+									"console.log(pm.collectionVariables.get(\"create_root_name\"));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n    \"category\": {\n        \"root\": {\n            \"name\": {{create_root_name}}\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/categories",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"categories"
+							]
+						},
+						"description": "### Creates Root Category\nIn Example \"Fruits & Vegitables\" -> \"Fruits\". Use this API to create \"Fruits & Vegitables\"\n\n### Payload\n|Field    |Type      |Description        |\n|---------|----------|-------------------|\n|name*     |String    |Required           |"
+					},
+					"response": [
+						{
+							"name": "Create Root",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\n{\n    \"category\": {\n        \"root\": {\n            \"name\": \"Masalas\"\n        }\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/external/api/v1/categories",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"external",
+										"api",
+										"v1",
+										"categories"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Cowboy"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 01 Dec 2021 06:00:39 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Xss-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Etag",
+									"value": "W/\"7ddb622229543dbf7018cc5ad7e90ae5\""
+								},
+								{
+									"key": "Cache-Control",
+									"value": "max-age=0, private, must-revalidate"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "70312fe6-d499-4fc0-975e-39c31e7afce7"
+								},
+								{
+									"key": "X-Runtime",
+									"value": "0.240111"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 vegur"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"errors\": [],\n    \"category\": {\n        \"root\": {\n            \"name\": \"Masalas\",\n            \"id\": 9571\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Create Child",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const req = JSON.parse(request.data);\r",
+									"const response = pm.response.json();\r",
+									"const schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"category\": {\r",
+									"      \"type\": \"object\",\r",
+									"      \"properties\": {\r",
+									"        \"child\": {\r",
+									"          \"type\": \"object\",\r",
+									"          \"properties\": {\r",
+									"            \"name\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"parent_id\": {\r",
+									"              \"type\": \"integer\"\r",
+									"            }\r",
+									"          },\r",
+									"          \"required\": [\r",
+									"            \"name\",\r",
+									"            \"parent_id\"\r",
+									"          ]\r",
+									"        }\r",
+									"      },\r",
+									"      \"required\": [\r",
+									"        \"child\"\r",
+									"      ]\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"category\"\r",
+									"  ]\r",
+									"};\r",
+									"console.log(req.category.child.parent_id)\r",
+									"pm.test(\"Status -> \" + response.status , ()=>{\r",
+									"    pm.expect(response.status).to.not.eql(null);\r",
+									"})\r",
+									"\r",
+									"if(response.status != \"failed\"){\r",
+									"    pm.test(\"Validated schema\", () => {\r",
+									"        pm.expect(tv4.validate(req , schema)).to.be.true;\r",
+									"    });\r",
+									"    pm.test(\"Parent ID Validattion ->\" + req.category.child.parent_id, () =>{\r",
+									"        pm.expect(req.category.child.parent_id).to.not.eqls(null);\r",
+									"    });\r",
+									"    pm.test(\"Product Name Validattion ->\" + req.category.child.name, () =>{\r",
+									"        pm.expect(req.category.child.name).to.not.eqls(null);\r",
+									"    });\r",
+									"}\r",
+									"\r",
+									"if(response.errors != null){\r",
+									"     for(let i =0 ; i<response.errors.length; i++){\r",
+									"         errors = response.errors[i];\r",
+									"         pm.test(\"Errors -> \" + errors, () => {\r",
+									"             pm.expect(errors).to.not.eqls(null);\r",
+									"         })\r",
+									"    }\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"new_child_name\",pm.iterationData.get(\"new_child_name\"));\r",
+									"console.log(pm.collectionVariables.get(\"new_child_name\"));\r",
+									"pm.collectionVariables.set(\"update_child_parent_id\",pm.iterationData.get(\"update_child_parent_id\"));\r",
+									"console.log(pm.collectionVariables.get(\"update_child_parent_id\"));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"category\": {\n        \"child\": {\n            \"name\": \"{{new_child_name}}\",\n            \"parent_id\": {{update_child_parent_id}}\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/categories",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"categories"
+							]
+						},
+						"description": "### Creates Child Category\nIn Example \"Fruits & Vegitables\" -> \"Fruits\". Use this API to create \"Fruits\"\n\n### Payload\n|Field    |Type      |Description        |\n|---------|----------|-------------------|\n|name*     |String    |Required           |\n|parent_id*|String    |Required           |"
+					},
+					"response": [
+						{
+							"name": "Create Child",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"category\": {\n        \"child\": {\n            \"name\": \"amazing masalas\",\n            \"parent_id\": 9571\n        }\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/external/api/v1/categories",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"external",
+										"api",
+										"v1",
+										"categories"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Cowboy"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 01 Dec 2021 06:01:32 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Xss-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Etag",
+									"value": "W/\"6cf9ecb8abbbc990c6f3c7f0bab6b1a4\""
+								},
+								{
+									"key": "Cache-Control",
+									"value": "max-age=0, private, must-revalidate"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "e66cfc58-2d7f-45b2-99a3-60d28e093496"
+								},
+								{
+									"key": "X-Runtime",
+									"value": "0.118194"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 vegur"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"errors\": [],\n    \"category\": {\n        \"child\": {\n            \"name\": \"amazing masalas\",\n            \"id\": 9572\n        }\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Create Product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"const req = JSON.parse(request.data);\r",
+									"const schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"product\": {\r",
+									"      \"type\": \"object\",\r",
+									"      \"properties\": {\r",
+									"        \"name\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"description\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"brand\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"category_id\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"tags\": {\r",
+									"          \"type\": \"array\",\r",
+									"          \"items\": [\r",
+									"            {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            {\r",
+									"              \"type\": \"string\"\r",
+									"            }\r",
+									"          ]\r",
+									"        },\r",
+									"        \"variants\": {\r",
+									"          \"type\": \"array\",\r",
+									"          \"items\": [\r",
+									"            {\r",
+									"              \"type\": \"object\",\r",
+									"              \"properties\": {\r",
+									"                \"reference_id\": {\r",
+									"                  \"type\": \"string\"\r",
+									"                },\r",
+									"                \"sku\": {\r",
+									"                  \"type\": \"string\"\r",
+									"                },\r",
+									"                \"mrp\": {\r",
+									"                  \"type\": \"integer\"\r",
+									"                },\r",
+									"                \"selling_price\": {\r",
+									"                  \"type\": \"integer\"\r",
+									"                },\r",
+									"                \"quantity\": {\r",
+									"                  \"type\": \"integer\"\r",
+									"                },\r",
+									"                \"measurement_unit\": {\r",
+									"                  \"type\": \"string\"\r",
+									"                }\r",
+									"              },\r",
+									"              \"required\": [\r",
+									"                \"reference_id\",\r",
+									"                \"sku\",\r",
+									"                \"mrp\",\r",
+									"                \"selling_price\",\r",
+									"                \"quantity\",\r",
+									"                \"measurement_unit\"\r",
+									"              ]\r",
+									"            }\r",
+									"          ]\r",
+									"        }\r",
+									"      },\r",
+									"      \"required\": [\r",
+									"        \"name\",\r",
+									"        \"description\",\r",
+									"        \"brand\",\r",
+									"        \"category_id\",\r",
+									"        \"tags\",\r",
+									"        \"variants\"\r",
+									"      ]\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"product\"\r",
+									"  ]\r",
+									"};\r",
+									"console.log(req.product)\r",
+									"pm.test(\"Validate schema\", () => {\r",
+									"    pm.expect(tv4.validate(req , schema)).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"product_name\",pm.iterationData.get(\"product_name\"));\r",
+									"console.log(pm.collectionVariables.get(\"product_name\"));\r",
+									"\r",
+									"pm.collectionVariables.set(\"product_description\",pm.iterationData.get(\"product_description\"));\r",
+									"console.log(pm.collectionVariables.get(\"product_description\"));\r",
+									"\r",
+									"pm.collectionVariables.set(\"product_brand\",pm.iterationData.get(\"product_brand\"));\r",
+									"console.log(pm.collectionVariables.get(\"product_brand\"));\r",
+									"\r",
+									"pm.collectionVariables.set(\"product_category_id\",pm.iterationData.get(\"product_category_id\"));\r",
+									"console.log(pm.collectionVariables.get(\"product_category_id\"));\r",
+									"\r",
+									"pm.collectionVariables.set(\"product_reference_id\",pm.iterationData.get(\"product_reference_id\"));\r",
+									"console.log(pm.collectionVariables.get(\"product_reference_id\"));\r",
+									"\r",
+									"pm.collectionVariables.set(\"product_sku\",pm.iterationData.get(\"product_sku\"));\r",
+									"console.log(pm.collectionVariables.get(\"product_sku\"));\r",
+									"\r",
+									"pm.collectionVariables.set(\"product_mrp\",pm.iterationData.get(\"product_mrp\"));\r",
+									"console.log(pm.collectionVariables.get(\"product_mrp\"));\r",
+									"\r",
+									"pm.collectionVariables.set(\"product_selling_price\",pm.iterationData.get(\"product_selling_price\"));\r",
+									"console.log(pm.collectionVariables.get(\"product_selling_price\"));\r",
+									"\r",
+									"pm.collectionVariables.set(\"product_quantity\",pm.iterationData.get(\"product_quantity\"));\r",
+									"console.log(pm.collectionVariables.get(\"product_quantity\"));\r",
+									"\r",
+									"pm.collectionVariables.set(\"product_measurement_unit\",pm.iterationData.get(\"product_measurement_unit\"));\r",
+									"console.log(pm.collectionVariables.get(\"product_measurement_unit\"));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"product\": {\n    \"name\": \"{{product_name}}\",\n    \"description\": \"{{product_description}}\",\n    \"brand\": \"{{product_brand}}\",\n    \"category_id\": {{product_category_id}},\n    \"tags\": [{{product_tags}}],\n    \"variants\": [\n        {\n            \"reference_id\": \"{{product_reference_id}}\",\n            \"sku\": \"{{product_sku}}\",\n            \"mrp\": {{product_mrp}},\n            \"selling_price\": {{product_selling_price}},\n            \"quantity\": {{product_quantity}},\n            \"measurement_unit\": \"{{product_measurement_unit}}\"\n        }\n    ]\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"products"
+							]
+						},
+						"description": "## Payload \n\\* **are required fields.**\n\n### Product\n|Field    |Type      |Description        |\n|---------|----------|-------------------|\n|name*    |String    |Unique (case insensitive)|\n|description|String  |                   |\n|category_id*|Integer|                   |\n|tags     |String Array|                 |\n|variants*|Json Array|                   |\n\n### Variant\n|Field    |Type      |Description        |\n|---------|----------|-------------------|\n|reference_id*|String|Unique (case insensitive)|\n|sku*     |String    |Alphanumeric (no special characters)|\n|mrp*     |Float     |2 digits precision (Ex: 1.02)|\n|selling_price*|Float|2 digits precision |\n|quantity*|Float     | |\n|measurement_unit*|String|Set of accepted values (use measurement_units API)|\n\n#### Known Errors\n1) **Validation failed: Option value variants is invalid**\n\nOccurs when you try to create same quantity variant. Ex: two \"1 L\" variants.\n\n2) **\"Validation failed: Name Not a valid master unit\"**\n\nOnly set of values from measurement_units API are allowed."
+					},
+					"response": [
+						{
+							"name": "Create Product",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"product\": {\n    \"name\": \"Fortune Refined Groundnut Oil\",\n    \"description\": \"Fortune Refined Groundnut Oil\",\n    \"brand\": \"Fortune\",\n    \"category_id\": 9572,\n    \"tags\": [\"oils\", \"refined oils\"],\n    \"variants\": [\n        {\n            \"reference_id\": \"Oil1234567\",\n            \"sku\": \"Oil1234567\", // barcode\n            \"mrp\": 5,\n            \"selling_price\": 10,\n            \"quantity\": 1,\n            \"measurement_unit\": \"L\"\n        }\n    ]\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/external/api/v1/products",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"external",
+										"api",
+										"v1",
+										"products"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Cowboy"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 01 Dec 2021 06:02:57 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Xss-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Etag",
+									"value": "W/\"c76c0b99063fd5fcd69cf448954fa027\""
+								},
+								{
+									"key": "Cache-Control",
+									"value": "max-age=0, private, must-revalidate"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "26b67dfc-6816-42c3-9a01-e1b0aa900198"
+								},
+								{
+									"key": "X-Runtime",
+									"value": "0.535258"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 vegur"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"product\": {\n        \"reference_id\": \"catalog_1_m00000000_fortune-refined-groundnut-oil\"\n    }\n}"
+						},
+						{
+							"name": "Create Variants",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"product\": {\n    \"reference_id\": \"catalog_1_m00000000_fortune-refined-groundnut-oil\",\n    \"variants\": [\n        {\n            \"reference_id\": \"Oil12345678\",\n            \"sku\": \"Oil12345678\", // barcode\n            \"mrp\": 50,\n            \"selling_price\": 10,\n            \"quantity\": 2,\n            \"measurement_unit\": \"Ltr\"\n        }\n    ]\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/external/api/v1/products",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"external",
+										"api",
+										"v1",
+										"products"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Cowboy"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 01 Dec 2021 06:04:10 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Xss-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Etag",
+									"value": "W/\"c76c0b99063fd5fcd69cf448954fa027\""
+								},
+								{
+									"key": "Cache-Control",
+									"value": "max-age=0, private, must-revalidate"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "c16f22aa-1cb7-4b9e-8bec-2697b671eb91"
+								},
+								{
+									"key": "X-Runtime",
+									"value": "0.471092"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 vegur"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"product\": {\n        \"reference_id\": \"catalog_1_m00000000_fortune-refined-groundnut-oil\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Measurement Units",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"pm.test(\"test for request\" , function(){\r",
+									"    pm.response.to.have.status(200)\r",
+									"});\r",
+									"pm.test(\"Validate schema\", () => {\r",
+									"    pm.response.to.have.jsonSchema(schema);\r",
+									"});\r",
+									"// pm.globals.set\r",
+									"console.log(response.measurement_units[0])\r",
+									"// pm.test(\"Measurement Units\",() =>{\r",
+									"//     for(let i =0 ; i< response.measurement_units.length; i++){\r",
+									"//     pm.expect(response.measurement_units[i]).to.not.eqls\r",
+									"//     }\r",
+									"// })"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/measurement_units",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"measurement_units"
+							]
+						},
+						"description": "###### Use this API to get allowed measurement units while creating products."
+					},
+					"response": [
+						{
+							"name": "Measurement Units",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/external/api/v1/measurement_units",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"external",
+										"api",
+										"v1",
+										"measurement_units"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Cowboy"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 16 Feb 2022 12:55:46 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "heroku-session-affinity=ACyDaANoA24IAdywRe////8HYgAAPxJiAAWRzWEBbAAAAAFtAAAABXdlYi4xalgKy8PgszPoVtuaDsUKlrUCHbGR; Version=1; Expires=Thu, 17-Feb-2022 12:55:46 GMT; Max-Age=86400; Domain=testapi.migrocer.com; Path=/"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Xss-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin,Accept-Encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Etag",
+									"value": "W/\"ff1665b0f92ccca91a4c2ddb6dd774ae\""
+								},
+								{
+									"key": "Cache-Control",
+									"value": "max-age=0, private, must-revalidate"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "b97b5a65-4055-4a54-9d84-1f62bd114357"
+								},
+								{
+									"key": "X-Runtime",
+									"value": "0.311581"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 vegur"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"measurement_units\": [\n        \"Kg\",\n        \"Gm\",\n        \"ml\",\n        \"Pcs\",\n        \"Pads\",\n        \"Pages\",\n        \"Sticks\",\n        \"Ltr\",\n        \"W\",\n        \"Inch\",\n        \"Tabs\",\n        \"Rolls\",\n        \"Pack\",\n        \"Mtr\",\n        \"Carton\",\n        \"Mm\",\n        \"Bags\",\n        \"Sheets\",\n        \"Km\",\n        \"6X6\",\n        \"Bunch\",\n        \"Coils\",\n        \"Cm\",\n        \"Pulls\",\n        \"Sft\",\n        \"Set\",\n        \"4x6\",\n        \"tonne\",\n        \"6X4\",\n        \"Mg\",\n        \"GB\",\n        \"Mah\",\n        \"Wipes\",\n        \"Bath\",\n        \"Box\",\n        \"Yd\",\n        \"kit\",\n        \"patches\",\n        \"Pair\",\n        \"Roll\",\n        \"24.5X7\",\n        \"lb\",\n        \"2x6\",\n        \"3X3\",\n        \"Krishna\",\n        \"1\",\n        \"Unit\",\n        \"GMS\",\n        \"PC\"\n    ]\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Inventory",
+			"item": [
+				{
+					"name": "Update Inventory",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"const req = JSON.parse(request.data);\r",
+									"// console.log(req.variant.discontinued)\r",
+									"if(response.status == \"success\"){\r",
+									"pm.test(\"Status - \" + response.status + \"Request Validation\", () => {\r",
+									"    if(req.variant.mrp != null){\r",
+									"        pm.expect(req.variant.mrp).to.be.a(\"number\");\r",
+									"    }\r",
+									"    if(req.variant.selling_price != null){\r",
+									"        pm.expect(req.variant.selling_price).to.be.a(\"number\");\r",
+									"    }\r",
+									"    if(req.variant.discontinued != null){\r",
+									"        pm.expect(req.variant.discontinued).to.have.oneOf([true, false]);\r",
+									"    }\r",
+									"    if(req.variant.out_of_stock != null){\r",
+									"        pm.expect(req.variant.out_of_stock).to.have.oneOf([true, false]);\r",
+									"    }\r",
+									"    if(req.variant.reference_id != null){\r",
+									"        pm.expect(req.variant.reference_id).to.be.a('string');\r",
+									"    }\r",
+									"});\r",
+									"}\r",
+									"if(response.errors != null){\r",
+									"    for(let i=0;i< response.errors.length ; i++){\r",
+									"        errorlog = response.errors[i];\r",
+									"        pm.test(\"Status - \"+ response.status + \" Errors - \" + errorlog ,() =>{\r",
+									"            pm.expect(errorlog).to.not.eqls(null);\r",
+									"        })\r",
+									"    }\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"variant\": {\n        \"mrp\": 100.0,\n        \"selling_price\": 100.0,\n        \"discontinued\": true,\n        \"out_of_stock\": false,\n        \"reference_id\": \"Oil1234567\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/outlets/{{store_id}}/inventory",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"outlets",
+								"{{store_id}}",
+								"inventory"
+							]
+						},
+						"description": "## Use this API to update the inventory of a variant.\n\\* **are required fields.**\n\n### Payload\n|Field        |Type  |Description                                             |\n|-------------|------|--------------------------------------------------------|\n|reference_id*|String|An id using which initial product mapping has been done.|\n|mrp          |Float |2 digits precision                                      |\n|selling_price|Float |2 digits precision                                      |\n|out_of_stock |Bool  |                                                        |\n|discontinued |Bool  |                                                        |"
+					},
+					"response": [
+						{
+							"name": "Update Inventory",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"variant\": {\n        \"reference_id\": \"Oil12345678\",\n        \"out_of_stock\": true\n        // more fields\n        // \"mrp\": 100.0,\n        // \"selling_price\": 99.50,\n        // \"discontinued\": false\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/external/api/v1/outlets/b27075934afe46dd380d3e55b899ac84/inventory",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"external",
+										"api",
+										"v1",
+										"outlets",
+										"b27075934afe46dd380d3e55b899ac84",
+										"inventory"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Cowboy"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 01 Dec 2021 06:06:53 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Xss-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Etag",
+									"value": "W/\"77dac6096cdf781b9fa0eb1070ebffde\""
+								},
+								{
+									"key": "Cache-Control",
+									"value": "max-age=0, private, must-revalidate"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "f7496f78-df6d-409b-be03-1d5b6448496b"
+								},
+								{
+									"key": "X-Runtime",
+									"value": "0.041327"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 vegur"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"errors\": []\n}"
+						}
+					]
+				},
+				{
+					"name": "Bulk Update Inventory",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"const req = JSON.parse(request.data);\r",
+									"console.log(req[0])\r",
+									"if(response.errors != null){\r",
+									"    for(let i=0;i< response.errors.length ; i++){\r",
+									"        errorlog = response.errors;\r",
+									"        console.log(errorlog)\r",
+									"        if(response.status === \"warning\"){\r",
+									"            pm.test(\"Reference_Id - \" + errorlog[i].reference_id + \" Errors - \" + errorlog[i].message ,() =>{\r",
+									"                pm.expect(errorlog).to.not.eqls(null);\r",
+									"            })\r",
+									"        }\r",
+									"    }\r",
+									"    if(response.status == \"failed\"){\r",
+									"        pm.test(\"Errors - \" + errorlog ,() =>{\r",
+									"            pm.expect(errorlog).to.not.eqls(null);\r",
+									"        })\r",
+									"    }\r",
+									"}\r",
+									"\r",
+									"if(response.status == \"success\"){\r",
+									"    pm.test(\"Status - \" + response.status + \" Request Validation Check \", () => {\r",
+									"        for(i=0 ; i<req.length; i++){\r",
+									"            if(req[i].mrp != null){\r",
+									"                pm.expect(req[i].mrp).to.be.a(\"number\");\r",
+									"            }\r",
+									"            if(req[i].selling_price != null){\r",
+									"                pm.expect(req[i].selling_price).to.be.a(\"number\");\r",
+									"            }\r",
+									"            if(req[i].discontinued != null){\r",
+									"                pm.expect(req[i].discontinued).to.have.oneOf([true, false]);\r",
+									"            }\r",
+									"            if(req[i].out_of_stock != null){\r",
+									"                pm.expect(req[i].out_of_stock).to.have.oneOf([true, false]);\r",
+									"            }\r",
+									"            if(req[i].reference_id != null){\r",
+									"                pm.expect(req[i].reference_id).to.be.a('string');\r",
+									"            }\r",
+									"        }\r",
+									"    });\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"reference_id\": \"\",\n        \"out_of_stock\": true,\n        \"mrp\": 88.0,\n        \"selling_price\": 10.50,\n        \"discontinued\": false\n    },\n    {\n        \"reference_id\": \"\",\n        \"out_of_stock\": false,\n        \"mrp\": 100.0,\n        \"selling_price\": 99.50,\n        \"discontinued\": false\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/outlets/{{store_id}}/inventory/bulk",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"outlets",
+								"{{store_id}}",
+								"inventory",
+								"bulk"
+							]
+						},
+						"description": "- #### This API limited to one time use per day per outlet*\n- Use this API to update inventory in bulk.\n- You can update up to 5000 products.\n\n*Test environment has no such limitation"
+					},
+					"response": [
+						{
+							"name": "Bulk Update Inventory - Success",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\n    {\n        \"reference_id\": \"8901030358197\",\n        \"out_of_stock\": true,\n        \"mrp\": 88.0,\n        \"selling_price\": 10.50,\n        \"discontinued\": false\n    },\n    {\n        \"reference_id\": \"8850058005371\",\n        \"out_of_stock\": false,\n        \"mrp\": 100.0,\n        \"selling_price\": 99.50,\n        \"discontinued\": false\n    },\n    {\n        \"reference_id\": \"8901030669828\",\n        \"out_of_stock\": false,\n        \"mrp\": 100.0,\n        \"selling_price\": 99.50,\n        \"discontinued\": false\n    },\n    {\n        \"reference_id\": \"8901030603358\",\n        \"out_of_stock\": false,\n        \"mrp\": 100.0,\n        \"selling_price\": 99.50,\n        \"discontinued\": false\n    },\n    {\n        \"reference_id\": \"8901058858600\",\n        \"out_of_stock\": false,\n        \"mrp\": 100.0,\n        \"selling_price\": 99.50,\n        \"discontinued\": false\n    }\n    \n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/external/api/v1/outlets/b27075934afe46dd380d3e55b899ac84/inventory/bulk",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"external",
+										"api",
+										"v1",
+										"outlets",
+										"b27075934afe46dd380d3e55b899ac84",
+										"inventory",
+										"bulk"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Cowboy"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 20 Dec 2021 06:53:52 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Xss-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Etag",
+									"value": "W/\"77dac6096cdf781b9fa0eb1070ebffde\""
+								},
+								{
+									"key": "Cache-Control",
+									"value": "max-age=0, private, must-revalidate"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "19e765e9-ddc8-4a1f-b3bc-c40a950efed4"
+								},
+								{
+									"key": "X-Runtime",
+									"value": "1.559238"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 vegur"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"errors\": []\n}"
+						},
+						{
+							"name": "Bulk Update Inventory - Errors",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\n    {\n        \"reference_id\": \"abcdefg\",\n        \"out_of_stock\": true,\n        \"mrp\": 88.0,\n        \"selling_price\": 10.50,\n        \"discontinued\": false\n    },\n    {\n        \"reference_id\": \"hijkelpp\",\n        \"out_of_stock\": false,\n        \"mrp\": 100.0,\n        \"selling_price\": 99.50,\n        \"discontinued\": false\n    },\n    {\n        \"reference_id\": \"jdlldkfka\",\n        \"out_of_stock\": false,\n        \"mrp\": 100.0,\n        \"selling_price\": 99.50,\n        \"discontinued\": false\n    },\n    {\n        \"reference_id\": \"8901030603358\",\n        \"out_of_stock\": false,\n        \"mrp\": 100.0,\n        \"selling_price\": 99.50,\n        \"discontinued\": false\n    },\n    {\n        \"reference_id\": \"8901058858600\",\n        \"out_of_stock\": false,\n        \"mrp\": 100.0,\n        \"selling_price\": 99.50,\n        \"discontinued\": false\n    }\n    \n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/external/api/v1/outlets/b27075934afe46dd380d3e55b899ac84/inventory/bulk",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"external",
+										"api",
+										"v1",
+										"outlets",
+										"b27075934afe46dd380d3e55b899ac84",
+										"inventory",
+										"bulk"
+									]
+								}
+							},
+							"status": "Multi-Status",
+							"code": 207,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Cowboy"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 08 Mar 2022 08:33:32 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "heroku-session-affinity=ACyDaANoA24IAd+javX///8HYgALHVtiAA1usWEBbAAAAAFtAAAABXdlYi4xagdN7XcDyGNgfmlaKdZvjIDnxgSb; Version=1; Expires=Wed, 09-Mar-2022 08:33:32 GMT; Max-Age=86400; Domain=testapi.migrocer.com; Path=/"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Xss-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin,Accept-Encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "45d24cd3-c7fb-4ca5-8595-1af8daee972e"
+								},
+								{
+									"key": "X-Runtime",
+									"value": "0.957012"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 vegur"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"warning\",\n    \"errors\": [\n        {\n            \"reference_id\": \"abcdefg\",\n            \"message\": \"Reference id not found\"\n        },\n        {\n            \"reference_id\": \"hijkelpp\",\n            \"message\": \"Reference id not found\"\n        },\n        {\n            \"reference_id\": \"jdlldkfka\",\n            \"message\": \"Reference id not found\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "List Inventory",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"// console.log(response.errors[0])\r",
+									"\r",
+									"// console.log(response.outlets[1].guid);\r",
+									"// {\r",
+									"//     \"status\": \"failed\",\r",
+									"//     \"code\": \"unauthorized\",\r",
+									"//     \"errors\": [\r",
+									"//         \"No authentication provided.\"\r",
+									"//     ]\r",
+									"// }\r",
+									"if(response.errors != null){\r",
+									"    pm.test(\"Authentication - \" + response.errors[0], () =>{\r",
+									"        pm.expect(response.errors).not.to.include(\"No authentication\");\r",
+									"    })\r",
+									"}\r",
+									"// console.log(response.inventory[0])\r",
+									"if (response.inventory != null) {\r",
+									"    count = 0;\r",
+									"    for (let i = 0; i < response.inventory.length; i++) {\r",
+									"        intervel = response.inventory[i].reference_id;\r",
+									"        intervel2 = response.inventory[i].selling_price;\r",
+									"        intervel3 = response.inventory[i].mrp;\r",
+									"        console.log(intervel2)\r",
+									"        if (intervel2 == 0 || intervel2 == \"\" || intervel2 == null) {\r",
+									"            pm.test(\"Reference_Id - \" + intervel + \" Selling_Price Seems Zero or Empty  - \" + \"'\" + parseFloat(intervel2) + \"'\"  , () => {\r",
+									"                pm.expect(intervel2).to.not.eqls(null);\r",
+									"            })\r",
+									"        }\r",
+									"        if (intervel3 == 0 || intervel3 == \"\" || intervel3 == null) {\r",
+									"            pm.test(\"Reference_Id - \" + intervel + \" MRP Seems Zero or Empty  - \" + \"'\" + parseFloat(intervel3) + \"'\" , () => {\r",
+									"                pm.expect(intervel3).to.not.eqls(null);\r",
+									"            })\r",
+									"        }\r",
+									"        if(intervel == null || intervel == \"\"){\r",
+									"            pm.test(\"Reference_Id Seems Null\", () =>{\r",
+									"                pm.expect(intervel).to.not.eqls(null);\r",
+									"            })\r",
+									"    }\r",
+									"    count = count + 1; \r",
+									"    }\r",
+									"    pm.test(\"Total Products in Inventory\" + count,() =>{\r",
+									"        pm.expect(response.inventory).to.not.eqls(null);\r",
+									"    })\r",
+									"}\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "store_id",
+								"value": "8fad0f8ea6b108f86c4bb682e0374173",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{url}}/v1/outlets/{{store_id}}/inventory?page=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"outlets",
+								"{{store_id}}",
+								"inventory"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						},
+						"description": "### Query Params\n|Field        |Type  |Description        |\n|-------------|------|-------------------|\n|page         |Integer|Default: 1        |\n\n### Pagenation\n|Field        |Type  |Description        |\n|-------------|------|-------------------|\n|current_page |Integer|       |\n|total_pages  |Integer|       |"
+					},
+					"response": [
+						{
+							"name": "List Inventory",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/external/api/v1/outlets/b27075934afe46dd380d3e55b899ac84/inventory?page=1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"external",
+										"api",
+										"v1",
+										"outlets",
+										"b27075934afe46dd380d3e55b899ac84",
+										"inventory"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Cowboy"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 04 Jan 2022 07:31:29 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "heroku-session-affinity=ACyDaANoA24IAbWSXPf///8HYgAES5FiAAsQs2EBbAAAAAFtAAAABXdlYi4xaubfHySyAnQrVOLFPmhlUo44E9bP; Version=1; Expires=Wed, 05-Jan-2022 07:31:29 GMT; Max-Age=86400; Domain=testapi.migrocer.com; Path=/"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Xss-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin,Accept-Encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Etag",
+									"value": "W/\"98a368f997baca53e9970c00a2cbdf61\""
+								},
+								{
+									"key": "Cache-Control",
+									"value": "max-age=0, private, must-revalidate"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "7e69f77c-998f-4090-b34f-485072a35bbf"
+								},
+								{
+									"key": "X-Runtime",
+									"value": "0.162920"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 vegur"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"inventory\": [\n        {\n            \"mrp\": 50,\n            \"selling_price\": 10,\n            \"discontinued\": false,\n            \"out_of_stock\": false,\n            \"reference_id\": \"0\"\n        },\n        {\n            \"mrp\": 50,\n            \"selling_price\": 10,\n            \"discontinued\": false,\n            \"out_of_stock\": false,\n            \"reference_id\": \"\"\n        },\n        {\n            \"mrp\": 50,\n            \"selling_price\": 10,\n            \"discontinued\": false,\n            \"out_of_stock\": false,\n            \"reference_id\": \"Oil12345678\"\n        },\n        {\n            \"mrp\": 5,\n            \"selling_price\": 10,\n            \"discontinued\": false,\n            \"out_of_stock\": false,\n            \"reference_id\": \"Oil1234567\"\n        },\n        {\n            \"mrp\": 749,\n            \"selling_price\": 599,\n            \"discontinued\": false,\n            \"out_of_stock\": false,\n            \"reference_id\": \"rand_581727671\"\n        },\n        {\n            \"mrp\": 749,\n            \"selling_price\": 599,\n            \"discontinued\": false,\n            \"out_of_stock\": false,\n            \"reference_id\": \"8189898923782\"\n        },\n        {\n            \"mrp\": 749,\n            \"selling_price\": 599,\n            \"discontinued\": false,\n            \"out_of_stock\": false,\n            \"reference_id\": \"rand_817268936\"\n        },\n        {\n            \"mrp\": 749,\n            \"selling_price\": 599,\n            \"discontinued\": false,\n            \"out_of_stock\": false,\n            \"reference_id\": \"8923784567890\"\n        },\n        {\n            \"mrp\": 35,\n            \"selling_price\": 30,\n            \"discontinued\": false,\n            \"out_of_stock\": false,\n            \"reference_id\": \"8901287100013\"\n        },\n        {\n            \"mrp\": 126,\n            \"selling_price\": 120,\n            \"discontinued\": false,\n            \"out_of_stock\": false,\n            \"reference_id\": \"785018139224\"\n        },\n        {\n            \"mrp\": 260,\n            \"selling_price\": 260,\n            \"discontinued\": false,\n            \"out_of_stock\": false,\n            \"reference_id\": \"8901030587252\"\n        },\n        {\n            \"mrp\": 130,\n            \"selling_price\": 130,\n            \"discontinued\": false,\n            \"out_of_stock\": false,\n            \"reference_id\": \"8901030175053\"\n        },\n        {\n            \"mrp\": 88,\n            \"selling_price\": 10.5,\n            \"discontinued\": false,\n            \"out_of_stock\": true,\n            \"reference_id\": \"8901030358197\"\n        },\n        {\n            \"mrp\": 120,\n            \"selling_price\": 120,\n            \"discontinued\": false,\n            \"out_of_stock\": false,\n            \"reference_id\": \"8901030645198\"\n        },\n        {\n            \"mrp\": 100,\n            \"selling_price\": 99.5,\n            \"discontinued\": false,\n            \"out_of_stock\": false,\n            \"reference_id\": \"8901030603358\"\n        }\n    ],\n    \"current_page\": 1,\n    \"total_pages\": 26\n}"
+						}
+					]
+				},
+				{
+					"name": "List Product Inventory",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"// console.log(response.errors[0])\r",
+									"\r",
+									"// console.log(response.outlets[1].guid);\r",
+									"// {\r",
+									"//     \"status\": \"failed\",\r",
+									"//     \"code\": \"unauthorized\",\r",
+									"//     \"errors\": [\r",
+									"//         \"No authentication provided.\"\r",
+									"//     ]\r",
+									"// }\r",
+									"if (response.errors != null) {\r",
+									"    pm.test(\"Authentication - \" + response.errors[0], () => {\r",
+									"        pm.expect(response.errors).not.to.include(\"No authentication\");\r",
+									"    })\r",
+									"}\r",
+									"// console.log(response.inventory[0])\r",
+									"if (response.inventory != null) {\r",
+									"    count = 0;\r",
+									"    for (let i = 0; i < response.inventory.length; i++) {\r",
+									"        intervel = response.inventory[i].reference_id;\r",
+									"        intervel2 = response.inventory[i].selling_price;\r",
+									"        intervel3 = response.inventory[i].mrp;\r",
+									"        intervel4 = response.inventory[i].discontinued;\r",
+									"        intervel5 = response.inventory[i].out_of_stock;\r",
+									"        console.log(intervel2)\r",
+									"        if (intervel2 == 0 || intervel2 == \"\" || intervel2 == null) {\r",
+									"            pm.test(\"Selling_Price Seems Zero or Empty  - \" + \"'\" + parseFloat(intervel2) + \"'\" + \" Reference_Id - \" + intervel, () => {\r",
+									"                pm.expect(intervel2).to.not.eqls(null);\r",
+									"            })\r",
+									"        }\r",
+									"        if (intervel3 == 0 || intervel3 == \"\" || intervel3 == null) {\r",
+									"            pm.test(\"MRP Seems Zero or Empty  - \" + \"'\" + parseFloat(intervel3) + \"'\" + \" Reference_Id - \" + intervel, () => {\r",
+									"                pm.expect(intervel3).to.not.eqls(null);\r",
+									"            })\r",
+									"        }\r",
+									"        if(intervel == null || intervel == \"\"){\r",
+									"            pm.test(\"Reference_Id Seems Null\", () =>{\r",
+									"                pm.expect(intervel).to.not.eqls(null);\r",
+									"            })\r",
+									"        }\r",
+									"        else{\r",
+									"            pm.test(\"Reference_Id - \" + intervel + \" Selling_Price - \" + intervel2 + \" MRP - \" + intervel3 + \" Discount - \" + intervel4 + \" Out of Stock - \" + intervel5, ()=>{\r",
+									"                pm.expect(response.inventory).to.not.eqls(null);\r",
+									"            })\r",
+									"        }\r",
+									"    }\r",
+									"}\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/outlets/{{store_id}}/inventory?reference_id=rand_834546924",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"outlets",
+								"{{store_id}}",
+								"inventory"
+							],
+							"query": [
+								{
+									"key": "reference_id",
+									"value": "rand_834546924"
+								},
+								{
+									"key": "page",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						},
+						"description": "### Query Params\n|Field        |Type  |Description        |\n|-------------|------|-------------------|\n|reference_id*|String|                  |"
+					},
+					"response": [
+						{
+							"name": "List Product Inventory",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/external/api/v1/outlets/b27075934afe46dd380d3e55b899ac84/inventory?reference_id=8901030358197",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"external",
+										"api",
+										"v1",
+										"outlets",
+										"b27075934afe46dd380d3e55b899ac84",
+										"inventory"
+									],
+									"query": [
+										{
+											"key": "reference_id",
+											"value": "8901030358197"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Cowboy"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 04 Jan 2022 07:32:03 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Xss-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin,Accept-Encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Etag",
+									"value": "W/\"bfdd998416330945f99149866d169d86\""
+								},
+								{
+									"key": "Cache-Control",
+									"value": "max-age=0, private, must-revalidate"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "fe67bb49-4183-4638-b1fe-26bf830f6f61"
+								},
+								{
+									"key": "X-Runtime",
+									"value": "0.118881"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 vegur"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"inventory\": [\n        {\n            \"mrp\": 88,\n            \"selling_price\": 10.5,\n            \"discontinued\": false,\n            \"out_of_stock\": true,\n            \"reference_id\": \"8901030358197\"\n        }\n    ]\n}"
+						}
+					]
+				}
+			],
+			"description": "### URL Params\n|Field        |Type  |Description        |\n|-------------|------|-------------------|\n|outlet_id*   |String|Given by Phygital24|\n\n### Inventory\n|Field        |Type  |Description                                             |\n|-------------|------|--------------------------------------------------------|\n|reference_id |String|An id using which initial product mapping has been done.|\n|mrp          |Float |2 digits precision                                      |\n|selling_price|Float |2 digits precision                                      |\n|out_of_stock |Bool  |                                                        |\n|discontinued |Bool  |                                                        |"
+		},
+		{
+			"name": "Outlets",
+			"item": [
+				{
+					"name": "List Outlets",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"// console.log(response.errors[0])\r",
+									"\r",
+									"// console.log(response.outlets[1].guid);\r",
+									"// {\r",
+									"//     \"status\": \"failed\",\r",
+									"//     \"code\": \"unauthorized\",\r",
+									"//     \"errors\": [\r",
+									"//         \"No authentication provided.\"\r",
+									"//     ]\r",
+									"// }\r",
+									"if(response.errors != null){\r",
+									"    pm.test(\"Authentication - \" + response.errors[0], () =>{\r",
+									"        pm.expect(response.errors).not.to.include(\"No authentication\");\r",
+									"    })\r",
+									"}\r",
+									"if(response.outlets != null){\r",
+									"    for(let i =0 ; i<response.outlets.length; i++){\r",
+									"        intervel = response.outlets[i].name;\r",
+									"        intervel2 = response.outlets[i].guid;\r",
+									"        pm.test(\"Store Validation ->\" + intervel + \" Guid Validation ->\" + intervel2, () => {\r",
+									"        if(intervel === \"\" || intervel2 === \"\"){\r",
+									"            console.log(intervel);\r",
+									"            }\r",
+									"        else{\r",
+									"            pm.expect(intervel).to.not.eql(\"\");\r",
+									"            pm.expect(intervel2).to.not.eql(\"\");\r",
+									"            }\r",
+									"        })\r",
+									"    }\r",
+									"}\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/outlets",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"outlets"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Failed List Outlets",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v1/outlets",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"outlets"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"failed\",\n    \"code\": \"unauthorized\",\n    \"errors\": [\n        \"No authentication provided.\"\n    ]\n}"
+						}
+					]
+				}
+			],
+			"description": "List outlets accessible by the given auth token\nUse **guid** field as an outlet reference id"
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"if(response.errors == null ){\r",
+									"    pm.test(\"Order Status Check\" + \" Order ID - \" + response.order.order_id+ \" Order Status - \" +response.order.state + \" Ph.No - \" + response.order.customer.phone, () =>{\r",
+									"        pm.expect(response.order.order_id).to.not.eqls(null);\r",
+									"    })\r",
+									"}\r",
+									"if(response.errors != null){\r",
+									"    for(let i=0;i< response.errors.length ; i++){\r",
+									"        errorlog = response.errors[i];\r",
+									"        pm.test(\"Errors - \" + errorlog ,() =>{\r",
+									"            pm.expect(errorlog).to.not.eqls(null);\r",
+									"        })\r",
+									"    }\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/orders/R505979611",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"orders",
+								"R505979611"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Webhook",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"event_type\": \"new_order\", // Possible States \"delivery_state_update\", \"new_order\", \"order_state_update\"\n    \"order\": {\n        \"order_id\": \"R900752191\",\n        \"outlet_id\": \"e83627c06a0d907ace23854a8a51b65d\",\n        \"state\": \"placed\",\n        \"state_editable\": true,\n        \"customer\": {\n            \"first_name\": \"Tapas\",\n            \"last_name\": \"Test\",\n            \"phone\": \"9000000000\"\n        },\n        \"ship_address\": {\n            \"address1\": \"Test Address\",\n            \"address2\": \"Test Landmark\",\n            \"phone\": \"9000000000\",\n            \"city\": \"Hyderabad\",\n            \"zipcode\": \"\",\n            \"state\": \"Telangana\",\n            \"country\": \"India\",\n            \"maps_address\": \"2-72, Chhota Anjaiah Nagar, Gachibowli, Hyderabad, Telangana 500032, India\"\n        },\n        \"delivery_charge\": 30.0,\n        \"total_amount\": 342.0,\n        \"line_items\": [\n            {\n                \"id\": 38604,\n                \"variant_ref_id\": \"SKU011693\",\n                \"product_name\": \"Wingreens Schezwan Chilli Garlic Sauce\",\n                \"variation\": \"130 gm\",\n                \"unit_price\": \"79.0\",\n                \"quantity\": 1,\n                \"editable\": true,\n                \"total_discount\": 0.0,\n                \"free_item\": false\n            },\n            {\n                \"id\": 38605,\n                \"variant_ref_id\": \"SKU000212\",\n                \"product_name\": \"Everest Sambar Masala\",\n                \"variation\": \"100 Gm\",\n                \"unit_price\": \"63.0\",\n                \"quantity\": 1,\n                \"editable\": true,\n                \"total_discount\": 0.0,\n                \"free_item\": false\n            },\n            {\n                \"id\": 38606,\n                \"variant_ref_id\": \"8906032325123\",\n                \"product_name\": \"Ayur Shampoo Soya\",\n                \"variation\": \"500 ml\",\n                \"unit_price\": \"170.0\",\n                \"quantity\": 1,\n                \"editable\": true,\n                \"total_discount\": 0.0,\n                \"free_item\": false\n            }\n        ],\n        \"line_items_modified\": false,\n        \"payment\": {\n            \"mode\": \"cod\"\n        },\n        \"special_instructions\": \"\",\n        \"line_item_promotions\": [],\n        \"order_promotions\": [],\n        \"delivery\": {}\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "<url-given-by-client>",
+							"host": [
+								"<url-given-by-client>"
+							]
+						},
+						"description": "#### This API has to be implemented by client.\nThe request payload specifies what Phygital24 will post.\n\nWebhook Event Types\n- new_order\n- order_state_update\n- delivery_state_update\n\nPayload\n```json\n{\n  \"event_type\": \"delivery_state_update\",\n  \"order\": {} // Order Payload\n}\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Accept Order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"if(response.errors == null ){\r",
+									"    pm.test(\"Order Status Check\" + \" Order ID - \" + response.order.order_id+ \" Order Status - \" +response.order.state + \" Ph.No - \" + response.order.customer.phone, () =>{\r",
+									"        pm.expect(response.order.order_id).to.not.eqls(null);\r",
+									"    })\r",
+									"}\r",
+									"if(response.errors != null){\r",
+									"    for(let i=0;i< response.errors.length ; i++){\r",
+									"        errorlog = response.errors[i];\r",
+									"        pm.test(\"Errors - \" + errorlog ,() =>{\r",
+									"            pm.expect(errorlog).to.not.eqls(null);\r",
+									"        })\r",
+									"    }\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/orders/R557712056/accept",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"orders",
+								"R557712056",
+								"accept"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ship Order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"if(response.errors == null ){\r",
+									"    pm.test(\"Order Status Check\" + \" Order ID - \" + response.order.order_id+ \" Order Status - \" +response.order.state + \" Ph.No - \" + response.order.customer.phone, () =>{\r",
+									"        pm.expect(response.order.order_id).to.not.eqls(null);\r",
+									"    })\r",
+									"}\r",
+									"if(response.errors != null){\r",
+									"    for(let i=0;i< response.errors.length ; i++){\r",
+									"        errorlog = response.errors[i];\r",
+									"        pm.test(\"Errors - \" + errorlog ,() =>{\r",
+									"            pm.expect(errorlog).to.not.eqls(null);\r",
+									"        })\r",
+									"    }\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/orders/R505979611/ship",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"orders",
+								"R505979611",
+								"ship"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Ship Order",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v1/orders/R505979611/ship",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"orders",
+										"R505979611",
+										"ship"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"errors\": [],\n    \"order\": {\n        \"order_id\": \"R505979611\",\n        \"outlet_id\": \"8fad0f8ea6b108f86c4bb682e0374173\",\n        \"state\": \"shipped\",\n        \"state_editable\": true,\n        \"customer\": {\n            \"first_name\": \"Srivathsav\",\n            \"last_name\": \"test\",\n            \"phone\": \"8639431711\"\n        },\n        \"ship_address\": {\n            \"address1\": \"9_8-97\",\n            \"address2\": \"\",\n            \"phone\": \"8639431711\",\n            \"city\": \"NA\",\n            \"zipcode\": \"500084\",\n            \"state\": \"Andaman and Nicobar Islands\",\n            \"country\": \"India\",\n            \"maps_address\": \"43-106/1-55C/4, PNT Colony, Vijayawada, Andhra Pradesh 520015, India\"\n        },\n        \"delivery_charge\": 50,\n        \"total_amount\": 290,\n        \"line_items\": [\n            {\n                \"id\": 47600,\n                \"variant_ref_id\": \"111884\",\n                \"product_name\": \"Nandini GoodLife Skimmed Milk\",\n                \"variation\": \"1 ltr\",\n                \"unit_price\": 60,\n                \"quantity\": 4,\n                \"editable\": true,\n                \"total_discount\": 0,\n                \"free_item\": false\n            }\n        ],\n        \"line_items_editable\": true,\n        \"line_items_modified\": false,\n        \"payment\": {\n            \"mode\": \"cod\"\n        },\n        \"special_instructions\": \"\",\n        \"line_item_promotions\": [],\n        \"order_promotions\": [],\n        \"delivery\": {},\n        \"delivery_type\": \"homedelivery\",\n        \"express_delivery\": true,\n        \"delivery_slot_start_time\": \"2022-11-30T13:16:04Z\",\n        \"delivery_slot_end_time\": \"2022-11-30T13:46:04Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Deliver Order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"if(response.errors == null ){\r",
+									"    pm.test(\"Order Status Check\" + \" Order ID - \" + response.order.order_id+ \" Order Status - \" +response.order.state + \" Ph.No - \" + response.order.customer.phone, () =>{\r",
+									"        pm.expect(response.order.order_id).to.not.eqls(null);\r",
+									"    })\r",
+									"}\r",
+									"if(response.errors != null){\r",
+									"    for(let i=0;i< response.errors.length ; i++){\r",
+									"        errorlog = response.errors[i];\r",
+									"        pm.test(\"Errors - \" + errorlog ,() =>{\r",
+									"            pm.expect(errorlog).to.not.eqls(null);\r",
+									"        })\r",
+									"    }\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/orders/R505979611/deliver",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"orders",
+								"R505979611",
+								"deliver"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Deliver Order",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v1/orders/R505979611/deliver",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"orders",
+										"R505979611",
+										"deliver"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"errors\": [],\n    \"order\": {\n        \"order_id\": \"R505979611\",\n        \"outlet_id\": \"8fad0f8ea6b108f86c4bb682e0374173\",\n        \"state\": \"delivered\",\n        \"state_editable\": false,\n        \"customer\": {\n            \"first_name\": \"Srivathsav\",\n            \"last_name\": \"test\",\n            \"phone\": \"8639431711\"\n        },\n        \"ship_address\": {\n            \"address1\": \"9_8-97\",\n            \"address2\": \"\",\n            \"phone\": \"8639431711\",\n            \"city\": \"NA\",\n            \"zipcode\": \"500084\",\n            \"state\": \"Andaman and Nicobar Islands\",\n            \"country\": \"India\",\n            \"maps_address\": \"43-106/1-55C/4, PNT Colony, Vijayawada, Andhra Pradesh 520015, India\"\n        },\n        \"delivery_charge\": 50,\n        \"total_amount\": 290,\n        \"line_items\": [\n            {\n                \"id\": 47600,\n                \"variant_ref_id\": \"111884\",\n                \"product_name\": \"Nandini GoodLife Skimmed Milk\",\n                \"variation\": \"1 ltr\",\n                \"unit_price\": 60,\n                \"quantity\": 4,\n                \"editable\": false,\n                \"total_discount\": 0,\n                \"free_item\": false\n            }\n        ],\n        \"line_items_editable\": false,\n        \"line_items_modified\": false,\n        \"payment\": {\n            \"mode\": \"cod\"\n        },\n        \"special_instructions\": \"\",\n        \"line_item_promotions\": [],\n        \"order_promotions\": [],\n        \"delivery\": {},\n        \"delivery_type\": \"homedelivery\",\n        \"express_delivery\": true,\n        \"delivery_slot_start_time\": \"2022-11-30T13:16:04Z\",\n        \"delivery_slot_end_time\": \"2022-11-30T13:46:04Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Cancel Order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"if(response.errors == null ){\r",
+									"    pm.test(\"Order Status Check\" + \" Order ID - \" + response.order.order_id+ \" Order Status - \" +response.order.state + \" Ph.No - \" + response.order.customer.phone, () =>{\r",
+									"        pm.expect(response.order.order_id).to.not.eqls(null);\r",
+									"    })\r",
+									"}\r",
+									"if(response.errors != null){\r",
+									"    for(let i=0;i< response.errors.length ; i++){\r",
+									"        errorlog = response.errors[i];\r",
+									"        pm.test(\"Errors - \" + errorlog ,() =>{\r",
+									"            pm.expect(errorlog).to.not.eqls(null);\r",
+									"        })\r",
+									"    }\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/orders/R505979611/cancel",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"orders",
+								"R505979611",
+								"cancel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Move to Next State",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/orders/:order_id/next",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"orders",
+								":order_id",
+								"next"
+							],
+							"variable": [
+								{
+									"key": "order_id",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modify Line Items",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"order\": {\n        \"line_items\": [\n            {\n                //modify quantity\n                \"variant_ref_id\": \"abcd\",\n                \"quantity\": 1\n            },\n            {\n                // modify line item price\n                \"variant_ref_id\": \"adfaf\",\n                \"mrp\": 100,\n                \"selling_price\": 100\n            }\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/orders/:order_id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"orders",
+								":order_id"
+							],
+							"variable": [
+								{
+									"key": "order_id",
+									"value": ""
+								}
+							]
+						},
+						"description": "**Remove Item**: Set quantity field to zero.\n**Update Item**: Update quantity number.\n**Add Item**: Use mapped variant_ref_id and quantity."
+					},
+					"response": []
+				}
+			],
+			"description": "Order Payload is Same for all requests\n\n##### ORDER\n\n|Field               |Type      |Description                    |\n|--------------------|----------|-------------------------------|\n|order_id            |String    |                               |\n|outlet_id           |String    |                               |\n|state               |String    |Values: placed, accepted, shipped, delivered, cancelled|\n|state_editable      |bool      |                               |\n|customer            |Json      |                               |\n|ship_address        |Json      |                               |\n|delivery_charge     |Float     |Precision of 2                 |\n|total_amount        |Float     |Precision of 2. Final amount after applying all adjustments.|\n|line_items          |Json Array|                               |\n|line_items_modified |bool      |True if line items are modified|\n|line_items_editable |bool      |                               |\n|payment             |Json      |                               |\n|special_instructions|String    |                               |\n|line_item_promotions|Json      |                               |\n|order_promotions    |Json      |                               |\n|delivery            |Json      |                               |\n|delivery_type       |Json      |Values: homedelivery, storepickup|\n\n##### LINE ITEM\n\n|Field               |Type      |Description                    |\n|--------------------|----------|-------------------------------|\n|id                  |Integer   |                               |\n|variant_ref_id      |String    |                               |\n|product_name        |String    |                               |\n|variation           |String    |Ex: '100 gm'                   |\n|unit_price          |Float     |precision 2                    |\n|quantity            |Integer   |                               |\n|editable            |Bool      |                               |\n|total_discount      |Float     |precision 2                    |\n|free_item           |Bool      |                               |\n\n##### ADDRESS\n\n|Field               |Type      |Description                    |\n|--------------------|----------|-------------------------------|\n|address1            |String    |                               |\n|address2            |String    |                               |\n|phone               |String    |                               |\n|city                |String    |                               |\n|zipcode             |String    |                               |\n|state               |String    |                               |\n|country             |String    |                               |\n|maps_address        |String    |Fetched from google maps       |\n\n##### PAYMENT\n\n|Field               |Type      |Description                    |\n|--------------------|----------|-------------------------------|\n|mode                |String    |cod, online                    |\n|razorpay_payment_id |String    |exists if online               |\n|razorpay_refund_id  |String    |exists if online & has refunds |\n\n##### LINE ITEM PROMOTION\n\n|Field               |Type      |Description                    |\n|--------------------|----------|-------------------------------|\n|type                |String    |\"buy_m_get_n\", \"free_items_on_order_amount\"|\n|line_item_ids       |Integer Array|Line item ids for which the promotion is applied to.|\n|buy_m_line_item_ids |Integer Array|Exists for \"buy_m_get_n\" type only|\n|get_n_line_item_ids |Integer Array|Exists for \"buy_m_get_n\" type only|\n\n##### ORDER PROMOTION\n\n|Field               |Type      |Description                    |\n|--------------------|----------|-------------------------------|\n|type                |String    |\"promo_code\", \"referral\"       |\n|discount_amount     |Float     |precision 2                    |\n|code                |String    |                               |\n\n##### DELIVERY\n\n|Field               |Type      |Description                    |\n|--------------------|----------|-------------------------------|\n|partner             |String    |Ex: 'dunzo'                    |\n|status              |String    |Delivery Status. Look partner documentation.|\n|external_id         |String    |Unique delivery reference id.  |\n|delivery_person_name|String    |Available when delivery person is assigned.|\n|delivery_person_phone|String    |Available when delivery person is assigned.|\n|tracking_url        |String    |Available when delivery person is assigned.|"
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{auth_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "auth_token",
+			"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MTk5ODkwLCJhcGlfa2V5IjoiMmEyMDYyYWUxYTkzNGU3MjI4YzBhZjYzMGM5OGQ3N2RlMjc1MjQ5OWU2ZTQ4OGE0IiwiZXhwaXJlc19hdCI6MTk3NTA2Nzk2Nn0.EN3XQDEx4B1P19ShmVqC6xwFmcnfZSVAmNsjG1kvPdU"
+		},
+		{
+			"key": "staging_url",
+			"value": "teststore.migrocer.com"
+		},
+		{
+			"key": "prod_url",
+			"value": "store.migrocer.com"
+		},
+		{
+			"key": "store_guid",
+			"value": "44fe371f-4f5b-4277-8886-aafe2b00e937"
+		},
+		{
+			"key": "local_auth_token",
+			"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MTk5ODkwLCJhcGlfa2V5IjoiMmEyMDYyYWUxYTkzNGU3MjI4YzBhZjYzMGM5OGQ3N2RlMjc1MjQ5OWU2ZTQ4OGE0IiwiZXhwaXJlc19hdCI6MTk3NTA2Nzk2Nn0.EN3XQDEx4B1P19ShmVqC6xwFmcnfZSVAmNsjG1kvPdU"
+		},
+		{
+			"key": "url",
+			"value": "teststore.migrocer.com/external/api/",
+			"type": "string"
+		},
+		{
+			"key": "store_id",
+			"value": "8fad0f8ea6b108f86c4bb682e0374173",
+			"type": "string"
+		},
+		{
+			"key": "testing",
+			"value": "amazing masalas test",
+			"type": "string"
+		},
+		{
+			"key": "new_child_name",
+			"value": ""
+		},
+		{
+			"key": "update_child_parent_id",
+			"value": ""
+		}
+	]
+}
